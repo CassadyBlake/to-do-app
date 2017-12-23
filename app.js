@@ -2,7 +2,7 @@ var onReady = function() {
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
-  const delToDoForm = document.getElementById('delToDoForm');
+  const deleteBtn = document.deleteBtn;
 
   addToDoForm.addEventListener('submit', () => {
     event.preventDefault();
@@ -13,25 +13,32 @@ var onReady = function() {
 
     let checkbox = document.createElement('input');
 
+    let deleteBtn = document.createElement('button');
+
     checkbox.type = "checkbox";
 
     newLi.textContent = title;
 
+    deleteBtn.type = "button";
+
+    deleteBtn.textContent = 'Delete';
+
     newLi.appendChild(checkbox);
+
+    newLi.appendChild(deleteBtn);
 
     toDoList.appendChild(newLi);
 
     newToDoText.value = '';
 
+      deleteBtn.addEventListener('click', () => {
+
+        newLi.remove();
+
+      });
   });
 
-  delToDoForm.addEventListener('click', () => {
 
-    toDoList.removeChild(newLi);
-
-    newLi.removeChild(checkbox);
-
-  )};
 };
 
 window.onload = function() {
