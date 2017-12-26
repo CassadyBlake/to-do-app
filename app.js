@@ -1,43 +1,49 @@
 var onReady = function() {
+  let toDos = [];
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
-  const deleteBtn = document.deleteBtn;
 
-  addToDoForm.addEventListener('submit', () => {
-    event.preventDefault();
+  var createNewToDo = function() {
+    if (!newToDoText.value) { return; }
 
-    let title = newToDoText.value;
-
-    let newLi = document.createElement('li');
-
-    let checkbox = document.createElement('input');
-
-    let deleteBtn = document.createElement('button');
-
-    checkbox.type = "checkbox";
-
-    newLi.textContent = title;
-
-    deleteBtn.type = "button";
-
-    deleteBtn.textContent = 'Delete';
-
-    newLi.appendChild(checkbox);
-
-    newLi.appendChild(deleteBtn);
-
-    toDoList.appendChild(newLi);
+    toDos.push({
+      title: newToDoText.value,
+      complete: false
+    });
 
     newToDoText.value = '';
 
-      deleteBtn.addEventListener('click', () => {
+    renderTheUI();
 
-        newLi.remove();
+  }
 
-      });
+  var renderTheUI = function() {
+//why do I have to call const toDoList again?
+    const toDoList = document.getElementById('toDoList');
+
+    toDoList.textContent = '';
+//why is this only 'todo' and not 'todos'?
+    toDos.forEach(function(toDo) {
+        const newLi = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+
+        newLi.textContent = toDo.title;
+
+        toDoList.appendChild(newLi);
+        newLi.appendChild(checkbox);
+
+    });
+  }
+
+  addToDoForm.addEventListener('submit', event => {
+    event.preventDefault();
+    createNewToDo();
+    newToDoText.value = '';
   });
 
+  renderTheUI();
 
 };
 
