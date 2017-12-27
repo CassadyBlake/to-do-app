@@ -14,6 +14,7 @@ var onReady = function() {
 
     newToDoText.value = '';
 
+
     renderTheUI();
 
   }
