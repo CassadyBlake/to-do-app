@@ -23,7 +23,9 @@ var onReady = function() {
 
   }
 
-
+  var deleteToDo = function(id) {
+    toDos = toDos.filter(toDo => toDo.id !== id);
+  }
 
 
   var renderTheUI = function() {
@@ -46,12 +48,6 @@ var onReady = function() {
         toDoList.appendChild(newLi);
         newLi.appendChild(checkbox);
         newLi.appendChild(deleteBtn);
-
-        var deleteToDo = function(id) {
-          console.log(toDo.id);
-          toDos = toDos.filter(toDo => toDo.id !== id);
-          console.log(toDos);
-        }
 
         deleteBtn.addEventListener('click', event => {
           deleteToDo(toDo.id);
