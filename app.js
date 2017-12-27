@@ -1,5 +1,6 @@
 var onReady = function() {
   let toDos = [];
+  let ident = 0;
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
@@ -9,14 +10,25 @@ var onReady = function() {
 
     toDos.push({
       title: newToDoText.value,
-      complete: false
+      complete: false,
+      id: ident,
     });
+
+    ident++;
 
     newToDoText.value = '';
 
     renderTheUI();
+//console.log(toDos);
 
   }
+
+  var deleteToDo = function() {
+    console.log(toDos.id);
+    toDos = toDos.filter(toDo => toDo.id !== id);
+    console.log(toDos);
+  }
+
 
   var renderTheUI = function() {
 //why do I have to call const toDoList again?
@@ -27,13 +39,22 @@ var onReady = function() {
     toDos.forEach(function(toDo) {
         const newLi = document.createElement('li');
         const checkbox = document.createElement('input');
+        const deleteBtn = document.createElement('button');
+
+        deleteBtn.textContent = 'Delete';
+
         checkbox.type = 'checkbox';
 
         newLi.textContent = toDo.title;
 
         toDoList.appendChild(newLi);
         newLi.appendChild(checkbox);
+        newLi.appendChild(deleteBtn);
 
+        deleteBtn.addEventListener('click', event => {
+          deleteToDo();
+          renderTheUI();
+        });
     });
   }
 
